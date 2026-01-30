@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform enemy;
     
     private float enemySpawnTime;
-    private float enemySpawnTimeMax = 3f;
+    private float enemySpawnTimeMax = 1.5f;
     private float enemySpawnMinRadius = 5f;
     private float enemySpawnMaxRadius = 30f;
 

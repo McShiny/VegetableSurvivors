@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+
+    [SerializeField] private LayerMask enemyLayerMask;
 
     private Vector3 moveDirection;
     private float moveSpeed = 12f;
@@ -10,6 +13,8 @@ public class Projectile : MonoBehaviour
         Vector3 target = GetMousePosition.GetMouseWorldPosition();
         target.z = transform.position.z;              
         moveDirection = (target - transform.position).normalized;
+
+
     }
 
     private void Update() {
