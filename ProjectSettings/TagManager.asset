@@ -13,7 +13,7 @@ TagManager:
   - UI
   - Enemies
   - Projectiles
-  - 
+  - Edge
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Projectiles
     uniqueID: 4290188041
+    locked: 0
+  - name: UI
+    uniqueID: 1150020001
     locked: 0
   m_RenderingLayers:
   - Default

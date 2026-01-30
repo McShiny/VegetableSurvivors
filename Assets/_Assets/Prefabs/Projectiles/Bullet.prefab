@@ -100,8 +100,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8801391973168488738}
-  - component: {fileID: 513284536994843042}
   - component: {fileID: 6719097017332626693}
+  - component: {fileID: 513284536994843042}
   m_Layer: 7
   m_Name: Bullet
   m_TagString: Untagged
@@ -125,21 +125,6 @@ Transform:
   - {fileID: 3397511846114975858}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &513284536994843042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870899989675733384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cc990916e5e4a84289b0f1630f13a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  enemyLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!58 &6719097017332626693
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -176,3 +161,21 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.0010714084, y: 0}
   m_Radius: 0.12716304
+--- !u!114 &513284536994843042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870899989675733384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cc990916e5e4a84289b0f1630f13a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Projectile
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  edgeLayerMasl:
+    serializedVersion: 2
+    m_Bits: 256

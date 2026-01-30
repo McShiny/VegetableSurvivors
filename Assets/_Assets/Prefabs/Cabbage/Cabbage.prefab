@@ -283,3 +283,6 @@ MonoBehaviour:
   projectileLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 64

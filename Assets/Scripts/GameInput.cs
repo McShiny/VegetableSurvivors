@@ -7,7 +7,8 @@ public class GameInput : MonoBehaviour
     public static GameInput Instance {  get; private set; }
 
     public event EventHandler OnFiredProjectile;
-    
+    public event EventHandler OnPauseAction;
+
     private PlayerInputActions playerInputActions;
 
     private void Awake() {
@@ -17,7 +18,12 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Enable();
 
         playerInputActions.Player.Fire.performed += Fire_performed;
+        playerInputActions.Player.Pause.performed += Pause_performed;
 
+    }
+
+    private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+        OnPauseAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void Fire_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
