@@ -23,6 +23,8 @@ public class EnemyAI : MonoBehaviour
 
         HitByProjectile();
 
+        
+
     }
 
     private void HitByProjectile() {
@@ -37,9 +39,8 @@ public class EnemyAI : MonoBehaviour
     }
 
     private void TakeDamage() {
-
         health -= 1;
-
+        
         if (health <= 0) {
             Destroy(gameObject);
         }
