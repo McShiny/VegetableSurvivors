@@ -31,10 +31,10 @@ public class EnemySpawner : MonoBehaviour
 
             spawnPosition = new Vector3(Random.Range(-120,120),Random.Range(-120, 120), 0);
 
-        } while (!(Mathf.Abs(Player.Instance.GetPlayerPosition().y - spawnPosition.y) >= enemySpawnMinRadius &&
-        Mathf.Abs(Player.Instance.GetPlayerPosition().y - spawnPosition.y) <= enemySpawnMaxRadius &&
-        Mathf.Abs(Player.Instance.GetPlayerPosition().x - spawnPosition.x) >= enemySpawnMinRadius &&
-        Mathf.Abs(Player.Instance.GetPlayerPosition().x - spawnPosition.x) <= enemySpawnMaxRadius));
+        } while (!(Mathf.Abs(Player.Instance.transform.position.y - spawnPosition.y) >= enemySpawnMinRadius &&
+        Mathf.Abs(Player.Instance.transform.position.y - spawnPosition.y) <= enemySpawnMaxRadius &&
+        Mathf.Abs(Player.Instance.transform.position.x - spawnPosition.x) >= enemySpawnMinRadius &&
+        Mathf.Abs(Player.Instance.transform.position.x - spawnPosition.x) <= enemySpawnMaxRadius));
 
         return spawnPosition;
     }
