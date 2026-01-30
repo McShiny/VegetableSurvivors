@@ -33,4 +33,8 @@ public class Player : MonoBehaviour
         return lastDirection;
     }
 
+    public Vector3 GetPlayerPosition() {
+        return transform.position;
+    }
+
 }
