@@ -67,7 +67,8 @@ public class CucumberAI : EnemyAI
                 canDash = true;
                 dashCooldown = 5f;
             }
-            transform.forward = Vector3.Slerp(transform.forward, transform.forward + new Vector3(0f, 0f, 120f), Time.deltaTime);
+            float rotateSpeed = 10f;
+            transform.forward = Vector3.Slerp(transform.forward, transform.forward + new Vector3(0f, 0f, 120f), rotateSpeed * Time.deltaTime);
             dashCooldown -= Time.deltaTime;
         }
     }

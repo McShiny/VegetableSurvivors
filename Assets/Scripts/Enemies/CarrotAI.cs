@@ -112,7 +112,8 @@ public class CarrotAI : EnemyAI
             transform.position += moveDir * moveSpeed * Time.deltaTime;
         }
         else {
-            transform.LookAt(Player.Instance.transform.position);
+            float rotateSpeed = 10f;
+            transform.forward = Vector3.Slerp(transform.forward, Player.Instance.transform.position - transform.position, rotateSpeed * Time.deltaTime) - new Vector3(0f, Vector3.Slerp(transform.forward, Player.Instance.transform.position - transform.position, rotateSpeed * Time.deltaTime).y, 0f);
         }
     }
 
