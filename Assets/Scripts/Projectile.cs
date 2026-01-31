@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] private LayerMask enemyLayerMask;
     [SerializeField] private LayerMask edgeLayerMask;
+    [SerializeField] private ProjectilesSO projectileSO;
 
     private Vector3 moveDirection;
     private float moveSpeed = 12f;
@@ -28,4 +29,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
+    public ProjectilesSO GetProjectileSO() {
+        return projectileSO;
+    }
 }

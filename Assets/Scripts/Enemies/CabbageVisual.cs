@@ -1,21 +1,21 @@
 using UnityEngine;
 
-public class EnemyVisual : MonoBehaviour
+public class CabbageVisual : MonoBehaviour
 {
 
-    [SerializeField] private EnemyAI enemy;
+    [SerializeField] private CabbageAI cabbage;
     [SerializeField] private GameObject damagedVisual;
 
     private float damageVisualTime = 0.5f;
     private bool startDamageTime = false;
 
     private void Start() {
-        enemy.OnEnemyHit += Enemy_OnEnemyHit;
+        cabbage.OnCabbageEnemyHit += Cabbage_OnCabbageEnemyHit;
 
         Hide();
     }
 
-    private void Enemy_OnEnemyHit(object sender, System.EventArgs e) {
+    private void Cabbage_OnCabbageEnemyHit(object sender, System.EventArgs e) {
         Show();
         startDamageTime = true;
     }

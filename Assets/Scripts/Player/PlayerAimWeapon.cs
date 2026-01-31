@@ -100,20 +100,24 @@ public class PlayerAimWeapon : MonoBehaviour
     }
 
     private void HandleAiming() {
-        Vector3 mousePosition = GetMousePosition.GetMouseWorldPosition();
+        if (VegetableGameManager.Instance.IsGamePlaying()) {
+            Vector3 mousePosition = GetMousePosition.GetMouseWorldPosition();
 
-        aimDirection = (mousePosition - transform.position).normalized;
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        aimTransform.eulerAngles = new Vector3(0, 0, angle);
+            aimDirection = (mousePosition - transform.position).normalized;
+            float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+            aimTransform.eulerAngles = new Vector3(0, 0, angle);
+        }
     }
 
     private void AlternateFire() {
-        float spreadDistance = 0.6f;
-        float[] distances = { -spreadDistance, 0f, spreadDistance };
+        if (VegetableGameManager.Instance.IsGamePlaying()) {
+            float spreadDistance = 0.6f;
+            float[] distances = { -spreadDistance, 0f, spreadDistance };
 
-        foreach (float d in distances) {
+            foreach (float d in distances) {
 
-            Instantiate(bulletPrefab, shootPosition.transform.position + new Vector3(d, d, 0f), Quaternion.identity);
+                Instantiate(bulletPrefab, shootPosition.transform.position + new Vector3(d, d, 0f), Quaternion.identity);
+            }
         }
     }
 

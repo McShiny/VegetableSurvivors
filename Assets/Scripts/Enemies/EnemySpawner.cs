@@ -1,9 +1,11 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
 
-    [SerializeField] private Transform enemy;
+    [SerializeField] private List<Transform> enemies;
     
     private float enemySpawnTime;
     private float enemySpawnTimeMax = 1.5f;
@@ -19,9 +21,9 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private void SpawnEnemy() {
-        
-        Instantiate(enemy, GenerateSpawnPosition(), Quaternion.identity);
-
+        if (VegetableGameManager.Instance.IsGamePlaying()) {
+            Instantiate(enemies[Random.Range(0, enemies.Count)], GenerateSpawnPosition(), Quaternion.identity);
+        }
     }
 
     private Vector3 GenerateSpawnPosition() {

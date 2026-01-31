@@ -24,6 +24,14 @@ public class GameInput : MonoBehaviour
 
     }
 
+    private void OnDestroy() {
+        playerInputActions.Player.Fire.performed -= Fire_performed;
+        playerInputActions.Player.AlternateFire.performed -= AlternateFire_performed;
+        playerInputActions.Player.Pause.performed -= Pause_performed;
+
+        playerInputActions.Dispose();
+    }
+
     private void AlternateFire_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
         OnAlternateFiredProjectile?.Invoke(this, EventArgs.Empty);
     }

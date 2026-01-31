@@ -176,6 +176,7 @@ MonoBehaviour:
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  edgeLayerMasl:
+  edgeLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  projectileSO: {fileID: 11400000, guid: d9f90800a8b42b146ac2d5974824d5e4, type: 2}

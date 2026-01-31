@@ -18,10 +18,18 @@ public class PlayerScoreTracker : MonoBehaviour
     }
 
     private void Start() {
-        EnemyAI.OnEnemyKilled += EnemyAI_OnEnemyKilled;
+        CabbageAI.OnCabbageEnemyKilled += CabbageAI_OnCabbageEnemyKilled;
+        CucumberAI.OnCucumberEnemyKilled += CucumberAI_OnCucumberEnemyKilled;
     }
 
-    private void EnemyAI_OnEnemyKilled(object sender, System.EventArgs e) {
+    private void CucumberAI_OnCucumberEnemyKilled(object sender, EventArgs e) {
+        score += 3;
+        OnScoreChanged?.Invoke(this, new OnScoreChangedEventArgs {
+            score = score
+        });
+    }
+
+    private void CabbageAI_OnCabbageEnemyKilled(object sender, EventArgs e) {
         score++;
         OnScoreChanged?.Invoke(this, new OnScoreChangedEventArgs {
             score = score
