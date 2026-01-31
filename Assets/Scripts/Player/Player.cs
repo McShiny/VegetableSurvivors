@@ -61,6 +61,11 @@ public class Player : MonoBehaviour
         UpdatePlayerStats(state);
 
         playerAimWeapon.OnPlayerFire += PlayerAimWeapon_OnPlayerFire;
+        playerAimWeapon.OnPlayerAlternateFire += PlayerAimWeapon_OnPlayerAlternateFire;
+    }
+
+    private void PlayerAimWeapon_OnPlayerAlternateFire(object sender, EventArgs e) {
+        AlternateRecoil();
     }
 
     private void PlayerAimWeapon_OnPlayerFire(object sender, EventArgs e) {
@@ -167,7 +172,7 @@ public class Player : MonoBehaviour
 
     private void TakeDamage() {
         if (!isImmune) {
-            age++;
+            age += 6;
 
             OnPlayerAged?.Invoke(this, new OnPlayerAgedEventArgs {
                 progressNormalized = age / maxAge
@@ -191,7 +196,15 @@ public class Player : MonoBehaviour
     }
 
     private void Recoil() {
-        dirRecoil =  -2 * playerAimWeapon.GetAimDirection();
+        float recoilStrength = 2f;
+        dirRecoil =  -1 * recoilStrength * playerAimWeapon.GetAimDirection();
+        dirRecoil.z = 0;
+        isRecoil = true;
+    }
+
+    private void AlternateRecoil() {
+        float recoilStrength = 3.5f;
+        dirRecoil = -1 * recoilStrength * playerAimWeapon.GetAimDirection();
         dirRecoil.z = 0;
         isRecoil = true;
     }

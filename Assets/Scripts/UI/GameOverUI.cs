@@ -33,7 +33,7 @@ public class GameOverUI : MonoBehaviour
         if (VegetableGameManager.Instance.IsGameOver()) {
             Show();
 
-            playerScoreText.text = "5";
+            playerScoreText.text = "Your Score: " + PlayerScoreTracker.Instance.GetScore();
         }
         else {
             Hide();

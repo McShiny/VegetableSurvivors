@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class EnemyAI : MonoBehaviour
 {
 
-    public event EventHandler OnEnemyHit;
+    public static event EventHandler OnEnemyKilled;
 
+    public event EventHandler OnEnemyHit;
 
     [SerializeField] private LayerMask projectileLayerMask;
     [SerializeField] private LayerMask enemyLayerMask;
@@ -53,6 +55,8 @@ public class EnemyAI : MonoBehaviour
         
         if (health <= 0) {
             Destroy(gameObject);
+
+            OnEnemyKilled?.Invoke(this, EventArgs.Empty);
         }
 
     }
