@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
         }
         enemySpawnTime += Time.deltaTime;
     }
-
+    
     private void SpawnEnemy() {
         if (VegetableGameManager.Instance.IsGamePlaying()) {
             Instantiate(enemies[Random.Range(0, enemies.Count)], GenerateSpawnPosition(), Quaternion.identity);
@@ -30,7 +30,6 @@ public class EnemySpawner : MonoBehaviour
         Vector3 spawnPosition = Vector3.zero;
 
         do {
-
             spawnPosition = new Vector3(Random.Range(-120,120),Random.Range(-120, 120), 0);
 
         } while (!(Mathf.Abs(Player.Instance.transform.position.y - spawnPosition.y) >= enemySpawnMinRadius &&

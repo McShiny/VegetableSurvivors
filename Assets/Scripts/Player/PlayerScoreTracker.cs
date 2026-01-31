@@ -20,6 +20,14 @@ public class PlayerScoreTracker : MonoBehaviour
     private void Start() {
         CabbageAI.OnCabbageEnemyKilled += CabbageAI_OnCabbageEnemyKilled;
         CucumberAI.OnCucumberEnemyKilled += CucumberAI_OnCucumberEnemyKilled;
+        CarrotAI.OnCarrotEnemyKilled += CarrotAI_OnCarrotEnemyKilled;
+    }
+
+    private void CarrotAI_OnCarrotEnemyKilled(object sender, EventArgs e) {
+        score += 2;
+        OnScoreChanged?.Invoke(this, new OnScoreChangedEventArgs {
+            score = score
+        });
     }
 
     private void CucumberAI_OnCucumberEnemyKilled(object sender, EventArgs e) {

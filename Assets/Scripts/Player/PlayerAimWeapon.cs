@@ -41,24 +41,28 @@ public class PlayerAimWeapon : MonoBehaviour
     }
 
     private void GameInput_OnAlternateFiredProjectile(object sender, EventArgs e) {
-        if (!hasAlternateFired) {
-            AlternateFire();
-            OnPlayerAlternateFire?.Invoke(this, EventArgs.Empty);
-            OnAlternateFireCooldown?.Invoke(this, new OnAlternateFireCooldownEventArgs {
-                alternateCooldownNormalized = 1 - (fireAlternateCooldown / 5)
-            });
-            hasAlternateFired = true;
+        if (VegetableGameManager.Instance.IsGamePlaying()) { 
+            if (!hasAlternateFired) {
+                AlternateFire();
+                OnPlayerAlternateFire?.Invoke(this, EventArgs.Empty);
+                OnAlternateFireCooldown?.Invoke(this, new OnAlternateFireCooldownEventArgs {
+                    alternateCooldownNormalized = 1 - (fireAlternateCooldown / 5)
+                });
+                hasAlternateFired = true;
+            }
         }
     }
 
     private void GameInput_OnFiredProjectile(object sender, System.EventArgs e) {
-        if (!hasFired) {
-            Instantiate(bulletPrefab, shootPosition.transform.position, Quaternion.identity);
-            OnPlayerFire?.Invoke(this, EventArgs.Empty);
-            OnFireCooldown?.Invoke(this, new OnFireCooldownEventArgs {
-                cooldownNormalized = 1 - fireCooldown
-            });
-            hasFired = true;
+        if (VegetableGameManager.Instance.IsGamePlaying()) {
+            if (!hasFired) {
+                Instantiate(bulletPrefab, shootPosition.transform.position, Quaternion.identity);
+                OnPlayerFire?.Invoke(this, EventArgs.Empty);
+                OnFireCooldown?.Invoke(this, new OnFireCooldownEventArgs {
+                    cooldownNormalized = 1 - fireCooldown
+                });
+                hasFired = true;
+            }
         }
     }
 

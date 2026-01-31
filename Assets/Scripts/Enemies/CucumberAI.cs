@@ -81,7 +81,7 @@ public class CucumberAI : EnemyAI
     }
 
     protected override void HitByProjectile() {
-        float capsuleWidth = 0.6f;
+        float capsuleWidth = 1.2f;
         float capsuleHeight = 2.0f;
         Vector2 capsuleSize = new Vector2(capsuleWidth, capsuleHeight);
 
@@ -95,7 +95,7 @@ public class CucumberAI : EnemyAI
     }
 
     protected override Vector2 DontHitOtherEnemyPath() {
-        float capsuleWidth = 0.6f; 
+        float capsuleWidth = 1.2f; 
         float capsuleHeight = 2.0f;
         Vector2 capsuleSize = new Vector2(capsuleWidth, capsuleHeight);
 

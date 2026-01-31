@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a62e5132e6e24e1449245775494b3bd5, type: 3}
-  m_Name: BabySO
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAgesSO
-  ageName: Baby
-  speed: 7
-  width: 1
-  height: 1
+  m_Script: {fileID: 11500000, guid: c865fefd8ff7d3246a87ffebb59bb8df, type: 3}
+  m_Name: CarrotBullet
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectilesSO
+  projectileName: CarrotBullet
+  damage: 3

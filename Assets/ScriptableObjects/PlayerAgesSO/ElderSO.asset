@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAgesSO
   ageName: Elder
   speed: 8
-  health: 30
+  width: 1.4
+  height: 1.3

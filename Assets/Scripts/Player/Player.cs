@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private GameInput gameInput;
     [SerializeField] private LayerMask enemiesLayerMask;
+    [SerializeField] private LayerMask enemyProjectileLayerMask;
     [SerializeField] private PlayerAimWeapon playerAimWeapon;
 
     [SerializeField] private List<PlayerAgesSO> playerAgesSOList;
@@ -115,6 +116,7 @@ public class Player : MonoBehaviour
 
         HandleMovement();
         HandleTakeDamage();
+        HitByProjectile();
 
         if (isImmune) {
             if (immunityTime <= 0) {
@@ -189,8 +191,59 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void TakeDamage(float damage, float pushStrength) {
+        if (!isImmune) {
+            age += damage;
+
+            OnPlayerAged?.Invoke(this, new OnPlayerAgedEventArgs {
+                progressNormalized = age / maxAge
+            });
+
+            if (pushStrength > 0) {
+                pushBack(pushStrength);
+            }
+            OnPlayerDamaged?.Invoke(this, EventArgs.Empty);
+            isImmune = true;
+        }
+
+        if (age >= maxAge) {
+            OnGameOver?.Invoke(this, EventArgs.Empty);
+            Destroy(gameObject);
+        }
+    }
+
+    private void HitByProjectile() {
+        float capsuleWidth = 0f;
+        float capsuleHeight = 0f;
+
+        foreach (var status in playerAgesSOList) {
+            if (status == null) continue;
+
+            if (status.ageName == state.ToString()) {
+                capsuleWidth = status.width;
+                capsuleHeight = status.height;
+            }
+        }
+        
+        Vector2 capsuleSize = new Vector2(capsuleWidth, capsuleHeight);
+
+        Collider2D collider = Physics2D.OverlapCapsule((Vector2)transform.position, capsuleSize, CapsuleDirection2D.Vertical, 0f, enemyProjectileLayerMask);
+
+        if (collider != null) {
+            Destroy(collider.gameObject);
+            TakeDamage(collider.GetComponent<Projectile>().GetProjectileSO().damage, 0f);
+            OnPlayerDamaged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
     private void pushBack() {
         dirPush = -2 * (enemyPosition - transform.position);
+        dirPush.z = 0;
+        isPushed = true;
+    }
+
+    private void pushBack(float pushStrength) {
+        dirPush = -1 * pushStrength * (enemyPosition - transform.position);
         dirPush.z = 0;
         isPushed = true;
     }
