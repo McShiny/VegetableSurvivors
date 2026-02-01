@@ -60,6 +60,10 @@ public class Player : MonoBehaviour
     private float age = 0f;
     private float ageIncreaseTime = 10f;
 
+    private float damageMultiplier = 1f;
+
+    private bool isUpgraded = false;
+
     private void Awake() {
         Instance = this;
     }
@@ -70,6 +74,35 @@ public class Player : MonoBehaviour
 
         playerAimWeapon.OnPlayerFire += PlayerAimWeapon_OnPlayerFire;
         playerAimWeapon.OnPlayerAlternateFire += PlayerAimWeapon_OnPlayerAlternateFire;
+        Upgrade.Instance.OnDamageUpgrade += Upgrade_OnDamageUpgrade;
+        Upgrade.Instance.OnHealthUpgrade += Upgrade_OnHealthUpgrade;
+        EnemySpawner.Instance.OnWaveChanged += EnemySpawner_OnWaveChanged;
+    }
+
+    private void EnemySpawner_OnWaveChanged(object sender, EnemySpawner.OnWaveChangedEventArgs e) {
+        isUpgraded = false;
+        if (age >= 10f) {
+            age -= 10;
+        }
+        else {
+            age = 0f;
+        }
+    }
+
+    private void Upgrade_OnHealthUpgrade(object sender, EventArgs e) {
+        if (age >= 15f) {
+            age -= 15;
+        }
+        else {
+            age = 0f;
+        }
+        OnPlayerAged?.Invoke(this, new OnPlayerAgedEventArgs {
+            progressNormalized = age / maxAge
+        });
+    }
+
+    private void Upgrade_OnDamageUpgrade(object sender, EventArgs e) {
+        damageMultiplier += .5f;
     }
 
     private void PlayerAimWeapon_OnPlayerAlternateFire(object sender, EventArgs e) {
@@ -124,6 +157,7 @@ public class Player : MonoBehaviour
         HandleMovement();
         HandleTakeDamage();
         HitByProjectile();
+        HandleUpgradeShrine();
 
         if (isImmune) {
             if (immunityTime <= 0) {
@@ -135,8 +169,27 @@ public class Player : MonoBehaviour
 
         if(isRecoil) {
             if (Mathf.Sqrt(Vector3.Dot(distanceRecoiled, distanceRecoiled)) <= Mathf.Sqrt(Vector3.Dot(dirRecoil, dirRecoil))) {
-                transform.position += dirRecoil * recoilSpeed * Time.deltaTime;
-                distanceRecoiled += dirRecoil * recoilSpeed * Time.deltaTime;
+                float capsuleWidth = 0f;
+                float capsuleHeight = 0f;
+
+                foreach (var status in playerAgesSOList) {
+                    if (status == null) continue;
+
+                    if (status.ageName == state.ToString()) {
+                        capsuleWidth = status.width;
+                        capsuleHeight = status.height;
+                    }
+                }
+
+                Vector2 capsuleSize = new Vector2(capsuleWidth, capsuleHeight);
+
+                bool canMove = !Physics2D.OverlapCapsule((Vector2)transform.position, capsuleSize, CapsuleDirection2D.Vertical, 0f, cantMoveLayerMask);
+
+                if (canMove) {
+                    transform.position += dirRecoil * recoilSpeed * Time.deltaTime;
+                    distanceRecoiled += dirRecoil * recoilSpeed * Time.deltaTime;
+                }
+                
             }
             else {
                 distanceRecoiled = Vector3.zero;
@@ -147,8 +200,27 @@ public class Player : MonoBehaviour
 
         if (isPushed) {
             if (Mathf.Sqrt(Vector3.Dot(distancePushed, distancePushed)) <= Mathf.Sqrt(Vector3.Dot(dirPush, dirPush))) {
-                transform.position += dirPush * pushSpeed * Time.deltaTime;
-                distancePushed += dirPush * pushSpeed * Time.deltaTime;
+                float capsuleWidth = 0f;
+                float capsuleHeight = 0f;
+
+                foreach (var status in playerAgesSOList) {
+                    if (status == null) continue;
+
+                    if (status.ageName == state.ToString()) {
+                        capsuleWidth = status.width;
+                        capsuleHeight = status.height;
+                    }
+                }
+
+                Vector2 capsuleSize = new Vector2(capsuleWidth, capsuleHeight);
+
+                bool canMove = !Physics2D.OverlapCapsule((Vector2)transform.position, capsuleSize, CapsuleDirection2D.Vertical, 0f, cantMoveLayerMask);
+
+                if (canMove) {
+                    transform.position += dirPush * pushSpeed * Time.deltaTime;
+                    distancePushed += dirPush * pushSpeed * Time.deltaTime;
+                }
+                
             }
             else {
                 distancePushed = Vector3.zero;
@@ -191,6 +263,8 @@ public class Player : MonoBehaviour
 
         if (canMove) {
             player.transform.position += moveDir * moveSpeed * Time.deltaTime;
+        } else {
+            player.transform.position += -player.transform.position.normalized * moveSpeed * Time.deltaTime;
         }
         
     }
@@ -288,8 +362,10 @@ public class Player : MonoBehaviour
 
         Collider2D collider = Physics2D.OverlapCapsule((Vector2)transform.position, capsuleSize, CapsuleDirection2D.Vertical, 0f, shrineLayerMask);
 
-        if (collider != null) {
+        if (collider != null && UpgradeShrine.Instance.IsShrineActive() && !isUpgraded) {
             OnGotUpgrade?.Invoke(this, EventArgs.Empty);
+            UpgradeShrine.Instance.SetShrineInactive();
+            isUpgraded = true;
         }
     }
 
@@ -339,6 +415,14 @@ public class Player : MonoBehaviour
     
     public bool IsWalking() {
         return isWalking;
+    }
+
+    public float GetDamageMultiplier() {
+        return damageMultiplier;
+    }
+
+    public float GetPlayerAge() {
+        return age;
     }
 
 }

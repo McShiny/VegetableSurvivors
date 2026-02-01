@@ -86,7 +86,7 @@ public class CarrotAI : EnemyAI
 
         if (collider != null) {
             Destroy(collider.gameObject);
-            TakeDamage(collider.GetComponent<Projectile>().GetProjectileSO().damage);
+            TakeDamage(collider.GetComponent<Projectile>().GetProjectileSO().damage * Player.Instance.GetDamageMultiplier());
             OnCarrotEnemyHit?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -125,7 +125,7 @@ public class CarrotAI : EnemyAI
     }
 
     private void CarrotSetHealth() {
-        SetHealth(3f);
+        SetHealth(2f + EnemySpawner.Instance.GetHealthModifier());
     }
 
     private void CarrotSetSpeed() {

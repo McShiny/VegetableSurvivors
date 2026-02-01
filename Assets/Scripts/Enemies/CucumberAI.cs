@@ -90,7 +90,7 @@ public class CucumberAI : EnemyAI
 
         if (collider != null) {
             Destroy(collider.gameObject);
-            TakeDamage(collider.GetComponent<Projectile>().GetProjectileSO().damage);
+            TakeDamage(collider.GetComponent<Projectile>().GetProjectileSO().damage * Player.Instance.GetDamageMultiplier());
             OnCucumberEnemyHit?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -128,7 +128,7 @@ public class CucumberAI : EnemyAI
     }
 
     private void CucumberSetHealth() {
-        SetHealth(5f);
+        SetHealth(5f + EnemySpawner.Instance.GetHealthModifier());
     }
 
     private void CucumberSetSpeed() {

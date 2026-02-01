@@ -44,7 +44,7 @@ public class CabbageAI : EnemyAI
 
         if (collider != null) {
             Destroy(collider.gameObject);
-            TakeDamage(collider.GetComponent<Projectile>().GetProjectileSO().damage);
+            TakeDamage(collider.GetComponent<Projectile>().GetProjectileSO().damage * Player.Instance.GetDamageMultiplier());
             OnCabbageEnemyHit?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -69,7 +69,7 @@ public class CabbageAI : EnemyAI
     }
 
     private void CabbageSetHealth() {
-        SetHealth(3f);
+        SetHealth(3f + EnemySpawner.Instance.GetHealthModifier());
     }
 
     private void CabbageSetSpeed() {

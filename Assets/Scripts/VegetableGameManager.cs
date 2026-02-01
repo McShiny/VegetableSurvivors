@@ -95,4 +95,15 @@ public class VegetableGameManager : MonoBehaviour
             OnGameUnPaused?.Invoke(this, EventArgs.Empty);
         }
     }
+
+    public void TogglePauseGameUpgrade() {
+        isGamePaused = !isGamePaused;
+
+        if (isGamePaused) {
+            Time.timeScale = 0f;
+        }
+        else {
+            Time.timeScale = 1f;
+        }
+    }
 }

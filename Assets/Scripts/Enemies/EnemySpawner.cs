@@ -1,7 +1,6 @@
     using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,6 +11,10 @@ public class EnemySpawner : MonoBehaviour
 
     public event EventHandler<OnWaveChangedEventArgs> OnWaveChanged;
     public class OnWaveChangedEventArgs : EventArgs {
+        public int wave;
+    }
+    public event EventHandler<OnWaveClearedEventArgs> OnWaveCleared;
+    public class OnWaveClearedEventArgs : EventArgs {
         public int wave;
     }
 
@@ -27,10 +30,13 @@ public class EnemySpawner : MonoBehaviour
     private int wave = 1;
     private bool waveInactive = false;
     private bool waveCleared = false;
+    private bool waveClearedInvkoed = false;
     private int enemiesAlive = 0;
     private float pauseBetweenWaves = 5f;
     private int waveMaxEnemies;
     private int spawnedEnemies = 0;
+
+    private float healthModifier = 1f;
 
 
     private void Awake() {
@@ -69,12 +75,22 @@ public class EnemySpawner : MonoBehaviour
         
         if (enemiesAlive <= 0 && spawnedEnemies >= waveMaxEnemies) {
             waveCleared = true;
+            if (!waveClearedInvkoed) {
+                OnWaveCleared?.Invoke(this, new OnWaveClearedEventArgs {
+                    wave = wave
+                });
+            } else {
+                waveClearedInvkoed = true;
+            }
         }
 
         if (waveInactive) {
             if(pauseBetweenWaves <= 0) {
                 waveInactive = false;
                 wave++;
+                if (wave % 3 == 0) {
+                    healthModifier++;
+                }
 
                 OnWaveChanged?.Invoke(this, new OnWaveChangedEventArgs {
                     wave = wave,
@@ -83,6 +99,7 @@ public class EnemySpawner : MonoBehaviour
                 waveMaxEnemies = GenerateNumEnemiesSpawned();
 
                 waveCleared = false;
+                waveClearedInvkoed = false;
                 spawnedEnemies = 0;
                 enemySpawnTime = 0f;
                 pauseBetweenWaves = 5f;
@@ -119,6 +136,10 @@ public class EnemySpawner : MonoBehaviour
 
     private int GenerateNumEnemiesSpawned() {
         return (int) Mathf.Round(0.5f * Mathf.Pow((float)System.Math.E, wave)) + 5;
+    }
+
+    public float GetHealthModifier() {
+        return healthModifier;
     }
 
 }
