@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour
     public event EventHandler OnPlayerDamaged;
     public event EventHandler OnStateChanged;
     public event EventHandler OnGameOver;
+    public event EventHandler OnGotUpgrade;
 
     public event EventHandler<OnPlayerAgedEventArgs> OnPlayerAged;
     public class OnPlayerAgedEventArgs : EventArgs {
@@ -27,6 +29,8 @@ public class Player : MonoBehaviour
     [SerializeField] private GameInput gameInput;
     [SerializeField] private LayerMask enemiesLayerMask;
     [SerializeField] private LayerMask enemyProjectileLayerMask;
+    [SerializeField] private LayerMask shrineLayerMask;
+    [SerializeField] private LayerMask cantMoveLayerMask;
     [SerializeField] private PlayerAimWeapon playerAimWeapon;
 
     [SerializeField] private List<PlayerAgesSO> playerAgesSOList;
@@ -38,6 +42,9 @@ public class Player : MonoBehaviour
     private float immunityTime = 0.5f;
     private bool isImmune = false;
     private float maxAge = 100f;
+
+    private Vector3 lastDirection;
+    private bool isWalking = false;
 
     private Vector3 dirRecoil;
     private Vector3 distanceRecoiled;
@@ -155,9 +162,37 @@ public class Player : MonoBehaviour
     private void HandleMovement() {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
 
-        Vector3 moveDir = new Vector3(inputVector.x, inputVector.y, 0);
+        if ((inputVector.x != 0)) {
+            lastDirection = inputVector;
+        }
+        if(inputVector.magnitude > 0) {
+            isWalking = true;
+        }
+        else {
+            isWalking = false;
+        }
+            Vector3 moveDir = new Vector3(inputVector.x, inputVector.y, 0);
 
-        player.transform.position += moveDir * moveSpeed * Time.deltaTime;
+        float capsuleWidth = 0f;
+        float capsuleHeight = 0f;
+
+        foreach (var status in playerAgesSOList) {
+            if (status == null) continue;
+
+            if (status.ageName == state.ToString()) {
+                capsuleWidth = status.width;
+                capsuleHeight = status.height;
+            }
+        }
+
+        Vector2 capsuleSize = new Vector2(capsuleWidth, capsuleHeight);
+
+        bool canMove = !Physics2D.OverlapCapsule((Vector2)transform.position, capsuleSize, CapsuleDirection2D.Vertical, 0f, cantMoveLayerMask);
+
+        if (canMove) {
+            player.transform.position += moveDir * moveSpeed * Time.deltaTime;
+        }
+        
     }
 
     private void HandleTakeDamage() {
@@ -236,6 +271,28 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void HandleUpgradeShrine() {
+        float capsuleWidth = 0f;
+        float capsuleHeight = 0f;
+
+        foreach (var status in playerAgesSOList) {
+            if (status == null) continue;
+
+            if (status.ageName == state.ToString()) {
+                capsuleWidth = status.width;
+                capsuleHeight = status.height;
+            }
+        }
+
+        Vector2 capsuleSize = new Vector2(capsuleWidth, capsuleHeight);
+
+        Collider2D collider = Physics2D.OverlapCapsule((Vector2)transform.position, capsuleSize, CapsuleDirection2D.Vertical, 0f, shrineLayerMask);
+
+        if (collider != null) {
+            OnGotUpgrade?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
     private void pushBack() {
         dirPush = -2 * (enemyPosition - transform.position);
         dirPush.z = 0;
@@ -274,6 +331,14 @@ public class Player : MonoBehaviour
 
     public State GetPlayerState() {
         return state;
+    }
+
+    public Vector3 GetLastDirection() {
+        return lastDirection;
+    }
+    
+    public bool IsWalking() {
+        return isWalking;
     }
 
 }

@@ -1,6 +1,7 @@
-using NUnit.Framework;
+    using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,19 +22,39 @@ public class EnemySpawner : MonoBehaviour
     private float enemySpawnTime;
     private float enemySpawnTimeMax = 1f;
     private float enemySpawnMinRadius = 5f;
-    private float enemySpawnMaxRadius = 30f;
+    private float enemySpawnMaxRadius = 50f;
 
     private int wave = 1;
     private bool waveInactive = false;
     private bool waveCleared = false;
+    private int enemiesAlive = 0;
     private float pauseBetweenWaves = 5f;
     private int waveMaxEnemies;
     private int spawnedEnemies = 0;
+
 
     private void Awake() {
         Instance = this;
 
         waveMaxEnemies = GenerateNumEnemiesSpawned();
+    }
+
+    private void Start() {
+        CabbageAI.OnCabbageEnemyKilled += CabbageAI_OnCabbageEnemyKilled;
+        CarrotAI.OnCarrotEnemyKilled += CarrotAI_OnCarrotEnemyKilled;
+        CucumberAI.OnCucumberEnemyKilled += CucumberAI_OnCucumberEnemyKilled;
+    }
+
+    private void CucumberAI_OnCucumberEnemyKilled(object sender, EventArgs e) {
+        enemiesAlive--;
+    }
+
+    private void CarrotAI_OnCarrotEnemyKilled(object sender, EventArgs e) {
+        enemiesAlive--;
+    }
+
+    private void CabbageAI_OnCabbageEnemyKilled(object sender, EventArgs e) {
+        enemiesAlive--;
     }
 
     private void Update() {
@@ -42,23 +63,28 @@ public class EnemySpawner : MonoBehaviour
             enemySpawnTime = 0f;
         } else if ((spawnedEnemies < waveMaxEnemies) && !waveInactive) {
             enemySpawnTime += Time.deltaTime;
-        }
-        else if (!waveInactive) {
+        } else if (waveCleared) {
             waveInactive = true;
-            spawnedEnemies = 0;
-            wave++;
-
-            OnWaveChanged?.Invoke(this, new OnWaveChangedEventArgs {
-                wave = wave,
-            });
-
-            waveMaxEnemies = GenerateNumEnemiesSpawned();
-            enemySpawnTime = 0f;
+        }
+        
+        if (enemiesAlive <= 0 && spawnedEnemies >= waveMaxEnemies) {
+            waveCleared = true;
         }
 
         if (waveInactive) {
             if(pauseBetweenWaves <= 0) {
                 waveInactive = false;
+                wave++;
+
+                OnWaveChanged?.Invoke(this, new OnWaveChangedEventArgs {
+                    wave = wave,
+                });
+
+                waveMaxEnemies = GenerateNumEnemiesSpawned();
+
+                waveCleared = false;
+                spawnedEnemies = 0;
+                enemySpawnTime = 0f;
                 pauseBetweenWaves = 5f;
             }
             pauseBetweenWaves -= Time.deltaTime;
@@ -71,6 +97,7 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemies[Random.Range(0, enemies.Count)], GenerateSpawnPosition(), Quaternion.identity);
 
             spawnedEnemies++;
+            enemiesAlive++;
 
             OnEnemyCountChanged?.Invoke(this, EventArgs.Empty);
         }

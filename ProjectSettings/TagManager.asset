@@ -15,7 +15,7 @@ TagManager:
   - Projectiles
   - Edge
   - EnemyProjectiles
-  - 
+  - Shrine
   - 
   - 
   - 
@@ -40,6 +40,9 @@ TagManager:
   m_SortingLayers:
   - name: Background
     uniqueID: 2322291511
+    locked: 0
+  - name: Trees
+    uniqueID: 3479521549
     locked: 0
   - name: Default
     uniqueID: 0

@@ -24,6 +24,7 @@ public class PlayerAimWeapon : MonoBehaviour
     [SerializeField] private Transform aimTransform;
     [SerializeField] private Transform bulletPrefab;
     [SerializeField] private Transform shootPosition;
+    [SerializeField] private Transform aimPivotTransform;
 
     private Vector3 aimDirection;
     private float fireCooldown = 1f;
@@ -109,7 +110,7 @@ public class PlayerAimWeapon : MonoBehaviour
 
             aimDirection = (mousePosition - transform.position).normalized;
             float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-            aimTransform.eulerAngles = new Vector3(0, 0, angle);
+            aimPivotTransform.eulerAngles = new Vector3(0f, 0f, angle);
         }
     }
 

@@ -18,7 +18,7 @@ public class CarrotAI : EnemyAI
     private bool hasFired = false;
     private bool firing = false;
     private float fireCooldown = 3f;
-    private float fireTime = 0.25f;
+    private float fireTime = 0.3f;
     private int maxTimesFired = 6;
     private int timesFired = 0;
 
@@ -79,7 +79,7 @@ public class CarrotAI : EnemyAI
 
     protected override void HitByProjectile() {
         float capsuleWidth = 0.8f; ;
-        float capsuleHeight = 1.8f;
+        float capsuleHeight = 2.2f;
         Vector2 capsuleSize = new Vector2(capsuleWidth, capsuleHeight);
 
         Collider2D collider = Physics2D.OverlapCapsule((Vector2)transform.position, capsuleSize, CapsuleDirection2D.Vertical, 0f, GetProjectileLayerMask());
@@ -93,7 +93,7 @@ public class CarrotAI : EnemyAI
 
     protected override Vector2 DontHitOtherEnemyPath() {
         float capsuleWidth = 0.8f;
-        float capsuleHeight = 1.8f;
+        float capsuleHeight = 2.2f;
         Vector2 capsuleSize = new Vector2(capsuleWidth, capsuleHeight);
 
         Collider2D collider = Physics2D.OverlapCapsule((Vector2)transform.position, capsuleSize, CapsuleDirection2D.Vertical, 0f, GetEnemyLayerMask());
@@ -112,8 +112,11 @@ public class CarrotAI : EnemyAI
             transform.position += moveDir * moveSpeed * Time.deltaTime;
         }
         else {
-            float rotateSpeed = 10f;
-            transform.forward = Vector3.Slerp(transform.forward, Player.Instance.transform.position - transform.position, rotateSpeed * Time.deltaTime) - new Vector3(0f, Vector3.Slerp(transform.forward, Player.Instance.transform.position - transform.position, rotateSpeed * Time.deltaTime).y, 0f);
+            float rotateSpeed = 16f;
+            Vector3 dir = Player.Instance.transform.position - transform.position;
+
+            Quaternion target = Quaternion.LookRotation(dir, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, target, rotateSpeed * Time.deltaTime);
         }
     }
 

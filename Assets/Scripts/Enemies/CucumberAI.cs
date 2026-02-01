@@ -46,7 +46,7 @@ public class CucumberAI : EnemyAI
                 isDash = false;
                 doingDash = true;
             }
-            transform.Rotate(0f, 0f, 780f / 1.5f * Time.deltaTime);
+            transform.Rotate(0f, 0f, 800f / 1.5f * Time.deltaTime);
             dashTime -= Time.deltaTime;
         }
 
@@ -68,7 +68,7 @@ public class CucumberAI : EnemyAI
                 dashCooldown = 5f;
             }
             float rotateSpeed = 10f;
-            transform.forward = Vector3.Slerp(transform.forward, transform.forward + new Vector3(0f, 0f, 120f), rotateSpeed * Time.deltaTime);
+            transform.forward = Vector3.Slerp(transform.forward, (transform.forward + new Vector3(0f, 0f, 100f)).normalized, rotateSpeed * Time.deltaTime);
             dashCooldown -= Time.deltaTime;
         }
     }
@@ -83,7 +83,7 @@ public class CucumberAI : EnemyAI
 
     protected override void HitByProjectile() {
         float capsuleWidth = 1.2f;
-        float capsuleHeight = 2.0f;
+        float capsuleHeight = 2.4f;
         Vector2 capsuleSize = new Vector2(capsuleWidth, capsuleHeight);
 
         Collider2D collider = Physics2D.OverlapCapsule((Vector2)transform.position, capsuleSize, CapsuleDirection2D.Vertical, 0f, GetProjectileLayerMask());
@@ -97,7 +97,7 @@ public class CucumberAI : EnemyAI
 
     protected override Vector2 DontHitOtherEnemyPath() {
         float capsuleWidth = 1.2f; 
-        float capsuleHeight = 2.0f;
+        float capsuleHeight = 2.4f;
         Vector2 capsuleSize = new Vector2(capsuleWidth, capsuleHeight);
 
         Collider2D collider = Physics2D.OverlapCapsule((Vector2)transform.position, capsuleSize, CapsuleDirection2D.Vertical, 0f, GetEnemyLayerMask());

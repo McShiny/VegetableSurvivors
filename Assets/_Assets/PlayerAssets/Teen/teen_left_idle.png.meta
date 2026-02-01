@@ -1,0 +1,269 @@
+fileFormatVersion: 2
+guid: af506c28c95c72e4b9bb466bc5ede2ee
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7425116980485443621
+    second: teen_left_idle_0
+  - first:
+      213: 3059179547845657419
+    second: teen_left_idle_1
+  - first:
+      213: 7819026890716981855
+    second: teen_left_idle_2
+  - first:
+      213: 6234324120156810821
+    second: teen_left_idle_3
+  - first:
+      213: -1201970034756031031
+    second: teen_left_idle_4
+  - first:
+      213: 5609041016766413548
+    second: teen_left_idle_5
+  - first:
+      213: -5179210195982808135
+    second: teen_left_idle_6
+  - first:
+      213: -416440632393774871
+    second: teen_left_idle_7
+  - first:
+      213: 7939281267951723797
+    second: teen_left_idle_8
+  - first:
+      213: 5743997255250223030
+    second: teen_left_idle_9
+  - first:
+      213: 3203538700277679062
+    second: teen_left_idle_10
+  - first:
+      213: -3918031283235583276
+    second: teen_left_idle_11
+  - first:
+      213: 5409447342554437630
+    second: teen_left_idle_12
+  - first:
+      213: -7810851966464216173
+    second: teen_left_idle_13
+  - first:
+      213: -63270801608085033
+    second: teen_left_idle_14
+  - first:
+      213: 4789316139248654687
+    second: teen_left_idle_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: teen_left_idle_1
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 110
+        width: 280
+        height: 654
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b430b7d2793647a20800000000000000
+      internalID: 3059179547845657419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teen_left_idle_2
+      rect:
+        serializedVersion: 2
+        x: 1390
+        y: 113
+        width: 274
+        height: 638
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5aa966b783c28c60800000000000000
+      internalID: 7819026890716981855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teen_left_idle_4
+      rect:
+        serializedVersion: 2
+        x: 2406
+        y: 113
+        width: 281
+        height: 627
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cde3b72f9eb15fe0800000000000000
+      internalID: -1201970034756031031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teen_left_idle_5
+      rect:
+        serializedVersion: 2
+        x: 3431
+        y: 108
+        width: 279
+        height: 645
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cea35f6361157dd40800000000000000
+      internalID: 5609041016766413548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: a621d1ea9c7d9854ea44fba4e9194b1e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      teen_left_idle_0: 7425116980485443621
+      teen_left_idle_1: 3059179547845657419
+      teen_left_idle_10: 3203538700277679062
+      teen_left_idle_11: -3918031283235583276
+      teen_left_idle_12: 5409447342554437630
+      teen_left_idle_13: -7810851966464216173
+      teen_left_idle_14: -63270801608085033
+      teen_left_idle_15: 4789316139248654687
+      teen_left_idle_2: 7819026890716981855
+      teen_left_idle_3: 6234324120156810821
+      teen_left_idle_4: -1201970034756031031
+      teen_left_idle_5: 5609041016766413548
+      teen_left_idle_6: -5179210195982808135
+      teen_left_idle_7: -416440632393774871
+      teen_left_idle_8: 7939281267951723797
+      teen_left_idle_9: 5743997255250223030
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
